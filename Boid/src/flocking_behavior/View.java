@@ -35,7 +35,7 @@ public class View extends PApplet {
 			boids[i].getKinematic().xBound = width;
 			boids[i].getKinematic().yBound = height;
 			boids[i].getKinematic().border = 2 * characterRadius;
-			((BoidActor) boids[i]).brightness = Math.random();
+			((BoidActor) boids[i]).brightness = (Math.random() / 2) + 0.5;
 		}
 		for (int i = 0; i < sharkCount; i++) {
 			sharks[i] = new WanderActor(Math.random() * width, Math.random() * height);
@@ -60,7 +60,7 @@ public class View extends PApplet {
 		}
 		for (Actor shark : sharks) {
 			shark.update(dt);
-			//renderActor(shark);
+			// renderActor(shark);
 		}
 	}
 
