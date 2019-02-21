@@ -24,14 +24,14 @@ public class View extends PApplet {
 	}
 
 	public void setup() {
-		p = randomize(20);
+		p = randomize(10);
 
 	}
 
 	public void draw() {
 		for (Box b : p) {
 			shift += jerk;
-			double s = Math.abs(shift % 2 - 1);
+			double s = Math.abs(shift % 0.03);
 			double dx = Math.random() * s * 2 - s;
 			double dy = Math.random() * s * 2 - s;
 			double dr = Math.random() * s * 2 - s;
@@ -47,12 +47,13 @@ public class View extends PApplet {
 		}
 		l = new ArrayList<>();
 		int[] color = { 0, 0, 0 };
-		traverse(p, 0, 0, width / 2, height / 2, 3, color);
+		traverse(p, 0, 0, width / 2, height / 2, 4, color);
 		loadPixels();
 		fill(color(Math.abs(256 - g % 512)));
 		noStroke();
 		for (Point k : l) {
 			pixels[(int) (k.pos.x + width * k.pos.y)] = color(Math.abs(256 - g % 512));
+			// circle((int)k.pos.x,(int) k.pos.y, 2);
 		}
 		updatePixels();
 		g++;
@@ -67,8 +68,7 @@ public class View extends PApplet {
 				kc[0] = c[0];
 				kc[1] = c[1];
 				kc[2] = c[2];
-				if (ky > 0 && ky < height - 1 && x > 0 && x < width - 1
-						&& Math.sqrt(Math.pow(b.x - 0.5, 2) + Math.pow(b.y - 0.5, 2)) < 0.5) {
+				if (ky > 0 && ky < height - 1 && x > 0 && x < width - 1) {
 					Point k = new Point(new Vector(kx, ky));
 					k.color = kc;
 					l.add(k);
@@ -87,11 +87,6 @@ public class View extends PApplet {
 				traverse(p, kx, ky, kw, kh, d - 1, kc);
 			}
 		}
-	}
-	
-	@Override
-	public void mousePressed() {
-		shift = 1;
 	}
 
 	private Box[] randomize(int n) {
